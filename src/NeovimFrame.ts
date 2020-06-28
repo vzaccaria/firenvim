@@ -1,7 +1,7 @@
 import { neovim } from "./nvimproc/Neovim";
 import { page } from "./page/proxy";
 import { getGridId, getWindowId, onKeyPressed as rendererOnKeyPressed, selectWindow } from "./render/Redraw";
-import { getLogicalSize } from "./render/RedrawCanvas";
+import { getLogicalSize, getGlyphInfo } from "./render/RedrawCanvas";
 import { confReady, getConfForUrl, getGlobalConf } from "./utils/configuration";
 import { addModifier, nonLiteralKeys, translateKey } from "./utils/keys";
 import { getCharSize, getGridSize, isFirefox, toFileName } from "./utils/utils";
@@ -195,7 +195,7 @@ export const isReady = new Promise((resolve, reject) => {
                     (evt.ctrlKey ? "V" : "") +
                     (evt.metaKey ? "D" : "") +
                     (evt.shiftKey ? "S" : "");
-                const [cWidth, cHeight] = getCharSize(host);
+                const [cWidth, cHeight] = getGlyphInfo();
                 nvim.input_mouse(button,
                                  action,
                                  modifiers,
